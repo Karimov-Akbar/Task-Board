@@ -36,7 +36,7 @@ const LoginPage = () => {
         <h1>Вход</h1>
 
         <div className={styles.field}>
-          <label htmlFor="nickname">Nickname</label>
+          <label htmlFor="nickname">Логин</label>
           <input id="nickname" {...register('nickname')} />
           {errors.nickname && (
             <span className={styles.error}>{errors.nickname.message}</span>
