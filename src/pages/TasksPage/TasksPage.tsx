@@ -3,7 +3,6 @@ import { Outlet } from 'react-router-dom';
 import { useTasksStore } from '@/features/tasks/model/tasksStore';
 import { TaskCard } from '@/features/tasks/ui/TaskCard/TaskCard';
 import { TaskFilters } from '@/features/tasks/ui/TaskFilters/TaskFilters';
-import type { Task } from '@/shared/types';
 import styles from './TasksPage.module.css';
 
 type ViewMode = 'board' | 'list';

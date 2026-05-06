@@ -82,7 +82,7 @@ export interface AuthResponse {
 
 export interface CreateTaskRequest {
     title: string;
-    descriprion?: string;
+    description?: string;
     status?: TaskStatus;
     priority?: TaskPriority;
     visibility?: TaskVisibility;

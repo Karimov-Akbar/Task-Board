@@ -1,16 +1,15 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { TaskStatus, TaskPriority, TaskVisibility } from '@/shared/types';
 import styles from './TaskForm.module.css';
 
 const taskSchema = z.object({
   title: z.string().min(1, 'Обязательное поле').max(500, 'Максимум 500 символов'),
-  description: z.string().max(5000).default(''),
+  description: z.string().max(5000),
   status: z.enum(['TODO', 'IN_PROGRESS', 'DONE']),
   priority: z.enum(['LOW', 'MEDIUM', 'HIGH']),
   visibility: z.enum(['ONLY_ME', 'LIST', 'ANYONE']),
-  viewerUserIds: z.array(z.string()).default([]),
+  viewerUserIds: z.array(z.string()),
 });
 
 export type TaskFormData = z.infer<typeof taskSchema>;

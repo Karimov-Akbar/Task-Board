@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Task, TaskListResponse } from '@/shared/types';
+import type { Task } from '@/shared/types';
 import { tasksApi } from '@/features/tasks/api/tasksApi';
 import { getApiErrorMessage } from '@/shared/api/axiosInstance';
 
