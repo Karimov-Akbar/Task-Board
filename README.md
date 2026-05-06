@@ -1,75 +1,73 @@
-# React + TypeScript + Vite
+# Task Board SPA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Task Board — одностраничное приложение для управления задачами, построенное на React + TypeScript + Vite.
 
-Currently, two official plugins are available:
+## Стек
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19** + TypeScript
+- **Vite** — сборка и dev-сервер
+- **Zustand** — стейт-менеджмент
+- **React Hook Form** + **Zod** — формы и валидация
+- **React Router** — маршрутизация
+- **Axios** — HTTP-клиент
+- **CSS Modules** — стилизация
 
-## React Compiler
+## Функционал
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Авторизация (логин / регистрация)
+- Kanban-доска с колонками по статусам
+- Переключение вида (доска / список)
+- Создание, редактирование, удаление задач
+- Фильтрация по статусу, приоритету, поиск
+- Модальные окна поверх основного контента
+- Защищённые роуты (redirect на логин)
 
-Note: This will impact Vite dev & build performances.
+## Запуск
 
-## Expanding the ESLint configuration
+### 1. Бэкенд
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/koshkinoko-hana/task-board-api.git
+cd task-board-api
+npm install
+cp .env.example .env
+npx prisma generate
+npx prisma migrate deploy
+npx prisma db seed
+npm run start:dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Бэкенд запустится на `http://localhost:3000`  
+Swagger: `http://localhost:3000/docs`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+> **Node.js 20 LTS** рекомендуется для бэкенда (на Node 25+ может потребоваться Python и C++ Build Tools для компиляции `better-sqlite3`).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Фронтенд
+
+```bash
+cd final-app
+npm install
+npm run dev
+```
+
+Фронт запустится на `http://localhost:5173`
+
+### Тестовые аккаунты
+
+| Nickname | Password     | Role  |
+|----------|-------------|-------|
+| admin    | password123 | ADMIN |
+| user     | password123 | USER  |
+
+## Структура проекта (FSD)
+
+```
+src/
+├── app/              # App, провайдеры, глобальные стили
+├── pages/            # Страницы (Login, Register, Tasks, TaskDetail, TaskCreate)
+├── widgets/          # Виджеты (Header)
+├── features/         # Фичи (auth, tasks)
+│   ├── auth/         # API, модель, схемы авторизации
+│   └── tasks/        # API, модель, UI-компоненты задач
+└── shared/           # Общие утилиты, типы, axios-инстанс
 ```
